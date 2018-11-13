@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class ArticleController extends Controller
 {
     public function index(){
-        dd('hworld');
+        dd('hello world');
     }
 }
