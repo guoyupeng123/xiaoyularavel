@@ -14,8 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('edu/article/index','Edu\ArticleController@index')->name('edu.article.index');
-Route::post('edu/article/create','Edu\ArticleController@create')->name('edu.article.create');
-Route::post('edu/article/store','Edu\ArticleController@store')->name('edu.article.store');
-//资源路由
-Route::resource('/edu/photo','Edu\PhotoController');
+//加载首页
+Route::get('/','HomeController@index')->name('index');
+//加载注册页面
+Route::get('/register','UserController@register')->name('register');
+//用户提交注册//因为不是git请求所以可以使用形同路径和别名
+Route::post('/register','UserController@store')->name('register');
+
+//工具类  any() get和post都可以
+Route::any('/code','Util\CodeController@send')->name('code.sent');
+
+
+Route::get('/login','UserController@login')->name('login');
+
+
+
