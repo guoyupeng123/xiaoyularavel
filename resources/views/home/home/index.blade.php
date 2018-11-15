@@ -362,7 +362,7 @@
                       </div>
                       <div class="col-auto">
 
-                        <small class="text-muted">
+                          <small class="text-muted">
                           2m
                         </small>
                     
@@ -524,23 +524,25 @@
 
           <!-- Dropdown -->
           <div class="dropdown">
-        
-            {{--<!-- Toggle -->--}}
-            {{--<a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-              {{--<img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">--}}
-            {{--</a>--}}
+          @auth
+            <!-- Toggle -->
+            <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{auth()->user()->icon}}" alt="..." class="avatar-img rounded-circle">
+            </a>
 
-            {{--<!-- Menu -->--}}
-            {{--<div class="dropdown-menu dropdown-menu-right">--}}
-              {{--<a href="profile-posts.html" class="dropdown-item">Profile</a>--}}
-              {{--<a href="settings.html" class="dropdown-item">Settings</a>--}}
-              {{--<hr class="dropdown-divider">--}}
-              {{--<a href="sign-in.html" class="dropdown-item">Logout</a>--}}
-            {{--</div>--}}
-
-            <a class="btn btn-white btn-sm">登陆</a>
+            <!-- Menu -->
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="javascript:;" class="dropdown-item">{{auth()->user()->name}}</a>
+              @if(auth()->user()->is_admin ==1)
+                <a href="{{route('admin.index')}}" class="dropdown-item">后台管理</a>
+              @endif
+              <hr class="dropdown-divider">
+              <a href="{{route('logout')}}" class="dropdown-item">注销登陆</a>
+            </div>
+            @else
+            <a href="{{route('login')}}" class="btn btn-white btn-sm">登陆</a>
             <a href="{{route('register')}}" class="btn btn-white btn-sm">注册</a>
-
+            @endauth
           </div>
 
         </div>

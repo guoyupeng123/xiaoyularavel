@@ -18,11 +18,10 @@ class CodeController extends Controller
 //      获取随机的四位验证码
         $code = $this->random();
 //      dd($code);//随机验证码获取成功
+
         $user = User::firstOrNew(['email'=>$request->username]);
 //        dd($user->toArray());
 //        user就是用户提交的邮箱
-
-
 
 //          需要创建通知类:php artisan make:notification  RegisterNotify
 //          验证码传入构造函数内发送给用户

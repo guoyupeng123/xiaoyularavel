@@ -42,7 +42,7 @@ class RegisterNotify extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('后盾人注册验证')
+                    ->subject('小宇网站验证提示')
                     ->line('您的验证码是'.$this->code);
     }
 

@@ -27,4 +27,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected function getIconAttribute($key){
+        return $key?:asset('org/images/user.jpg');
+    }
 }

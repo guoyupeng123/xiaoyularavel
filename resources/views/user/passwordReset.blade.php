@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,57 +24,47 @@
 <!-- CONTENT
 ================================================== -->
 <div class="container">
-    <div class="row align-items-center">
-        <div class="col-12 col-md-6 offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0">
-
-            <!-- Image -->
-            <div class="text-center">
-                <img src="{{asset('org/')}}/assets/img/illustrations/happiness.svg" alt="..." class="img-fluid">
-            </div>
-
-        </div>
-        <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-xl-4 my-5">
 
             <!-- Heading -->
             <h1 class="display-4 text-center mb-3">
-                注册页面
+                请重置您的密码
             </h1>
 
-            <!-- Subheading -->
-            <p class="text-muted text-center mb-5">
-                欢迎注册我们的产品
-            </p>
 
             <!-- Form -->
-            <form method="post" action={{route('register')}} >
+            <form method="post" action="{{route('password_reset')}}">
                 @csrf
+                <!-- Email address -->
                 <div class="form-group">
+
                     <!-- Label -->
-                    <label>用户名</label>
+                    <label>
+                        邮箱
+                    </label>
+
                     <!-- Input -->
-                    <input type="text" class="form-control" name="name" value="{{old('name')}}">
+                    <input type="email" name="email" class="form-control" placeholder="请输入您的邮箱" value="{{old('email')}}">
+
                 </div>
 
+                <!-- Password -->
                 <div class="form-group">
                     <!-- Label -->
-                    <label>注册邮箱</label>
+                    <label>新密码</label>
                     <!-- Input -->
-                    <input type="email" name="email" class="form-control" placeholder="name@address.com" value="1933304128@qq.com">
+                    <input type="password" name="password" class="form-control" placeholder="请输入您的密码">
                 </div>
 
+                <!-- Password -->
                 <div class="form-group">
                     <!-- Label -->
-                    <label>密码</label>
+                    <label>二次密码</label>
                     <!-- Input -->
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="请重新输入您的密码">
                 </div>
 
-                <div class="form-group">
-                    <!-- Label -->
-                    <label>二次提交密码</label>
-                    <!-- Input -->
-                    <input type="password" name="password_confirmation" class="form-control">
-                </div>
                 <div class="input-group mb-3">
                     <label>请填写验证码</label>
                     <input type="text" class="form-control" placeholder="请输入验证码" name="code" value="" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -83,16 +74,17 @@
                 </div>
 
 
-
                 <!-- Submit -->
                 <button class="btn btn-lg btn-block btn-primary mb-3">
-                    注册
+                    登录
                 </button>
 
                 <!-- Link -->
                 <div class="text-center">
                     <small class="text-muted text-center">
-                        Already have an account? <a href="sign-in-illustration.html">Log in</a>.
+                        还没账号 ? <a href="{{route('register')}}">去注册</a>.
+                        <a href="{{route('password_reset')}}">重置密码</a>.
+                        <a href="{{route('index')}}">返回首页</a>.
                     </small>
                 </div>
 
@@ -104,16 +96,6 @@
 
 <!-- JAVASCRIPT
 ================================================== -->
-
-{{--@if ($errors->any())--}}
-    {{--<div class="alert alert-danger">--}}
-        {{--<ul>--}}
-            {{--@foreach ($errors->all() as $error)--}}
-                {{--<li>{{ $error }}</li>--}}
-            {{--@endforeach--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-{{--@endif--}}
 
 {{--将hdjs封装成模板引入页面--}}
 @include('layouts.hdjs');
@@ -133,6 +115,7 @@
         hdjs.validCode(option);
     })
 </script>
+
 
 </body>
 </html>
