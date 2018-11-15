@@ -89,10 +89,10 @@
                     注册
                 </button>
 
-                <!-- Link -->
                 <div class="text-center">
                     <small class="text-muted text-center">
-                        Already have an account? <a href="sign-in-illustration.html">Log in</a>.
+                        忘记密码 ?<a href="{{route('password_reset')}}">重置密码</a>.
+                        <a href="{{route('index')}}">返回首页</a>.
                     </small>
                 </div>
 

@@ -72,7 +72,7 @@ class UserController extends Controller{
             return view('user.passwordReset');
         }
 
- //      更改密码
+ //      更改密码处理
         public function passwordResetForm(PasswordResetRequest $request){
 
 //            根据用户提交的邮箱去数据库查找数据

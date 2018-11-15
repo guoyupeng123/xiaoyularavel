@@ -11,11 +11,9 @@ class PasswordResetRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize(){
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *获取应用于请求的验证规则。
@@ -38,7 +36,6 @@ class PasswordResetRequest extends FormRequest
             ],
         ];
     }
-
 //    自定义消息提示内容
     public function messages()
     {
