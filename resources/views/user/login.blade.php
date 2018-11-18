@@ -60,6 +60,13 @@
                     <input type="password" name="password" class="form-control" placeholder="请输入您的密码">
                 </div>
 
+                <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="remember" id="remember" value="1">
+                        记住我
+                        <i class="input-helper"></i>
+                    </label>
+                </div>
                 <!-- Submit -->
                 <button class="btn btn-lg btn-block btn-primary mb-3">
                     登录

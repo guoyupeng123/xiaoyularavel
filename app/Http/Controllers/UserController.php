@@ -50,10 +50,12 @@ class UserController extends Controller{
             'password.required'=>'密码不得为空',
             'password.min'=>'密码不得少于三位数'
         ]);
+
 //        执行登陆
 //        手册->用户登录->手动用户登录
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials,$request->remember)) {
+//            $request->remember//记住我,手册用户认证-》记住用户
             return redirect()->route('index')->with('success','登录成功');
         }
         return redirect()->back()->with('danger','用户名密码不正确');

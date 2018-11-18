@@ -17,7 +17,6 @@
     <title>Dashkit</title>
   </head>
   <body>
-
     <!-- TOPNAV
     ================================================== -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
@@ -533,9 +532,9 @@
             <!-- Menu -->
             <div class="dropdown-menu dropdown-menu-right">
               <a href="javascript:;" class="dropdown-item">{{auth()->user()->name}}</a>
-              @if(auth()->user()->is_admin ==1)
+              @can('view',auth()->user())
                 <a href="{{route('admin.index')}}" class="dropdown-item">后台管理</a>
-              @endif
+              @endcan
               <hr class="dropdown-divider">
               <a href="{{route('logout')}}" class="dropdown-item">注销登陆</a>
             </div>

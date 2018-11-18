@@ -42,6 +42,7 @@ Route::any('/code','Util\CodeController@send')->name('code.sent');
 //['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.']  缩减声明路由
 Route::group(['middleware'=>['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
     Route::get('index','IndexController@index')->name('index');
+    Route::resource('category','CategoryController');
 });
 
 

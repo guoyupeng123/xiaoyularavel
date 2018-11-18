@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class IndexController extends Controller
 {
     public function index(){
-        dd('后台模板首页');
+        return view('admin.index.index');
     }
 }
