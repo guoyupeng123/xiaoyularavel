@@ -42,6 +42,10 @@ Route::any('/code','Util\CodeController@send')->name('code.sent');
 //['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.']  缩减声明路由
 Route::group(['middleware'=>['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
     Route::get('index','IndexController@index')->name('index');
+    //创建模型同时创建迁移文件和工厂
+    //artisan make:model --migration --factory Models/Category
+    //创建控制器指定模型
+    //artisan make:controller --model=Models/Category Admin/CategoryController
     Route::resource('category','CategoryController');
 });
 

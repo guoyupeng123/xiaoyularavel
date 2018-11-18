@@ -17,7 +17,7 @@ class AdminAuthMiddLeware
 
 //      dd(!auth()->check());
         //auth()->check()   检测用户是否登录
-//      如果用户没有登陆并且不是用户管理员,执行跳转
+//      如果用户没有登陆并且不是超级管理员,执行跳转
         if (!auth()->check() || auth()->user()->is_admin != 1){
             return redirect()->route('index');
         }
