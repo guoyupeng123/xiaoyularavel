@@ -81,4 +81,8 @@ class UserPolicy
     {
         //
     }
+    //判断指定用户是否为登录用户
+    public function isMine(User $user, User $model){
+        return $user->id == $model->id;
+    }
 }

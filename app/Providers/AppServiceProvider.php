@@ -20,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
         //**************注册观察者************
         User::observe(UserObserver::class);
         //**************注册观察者************
+
+
     }
 
     /**

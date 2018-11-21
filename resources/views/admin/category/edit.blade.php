@@ -1,5 +1,5 @@
 {{--模板继承 -- 加载父级模板--}}
-@extends('admin.layouts.master');
+@extends('admin.layouts.master')
 
 @section('content')
     <div class="content-wrapper">

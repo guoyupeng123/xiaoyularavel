@@ -22,6 +22,8 @@ class CategoryRequest extends FormRequest
      * @return array
      */
     public function rules(){
+        //接受路由参数
+//      dd($this->route('category'));//如果没有参数则为null
         $id = $this->route('category') ? $this->route('category')->id : null;
         return [
             'title'=>'required|unique:categories,title,' . $id,

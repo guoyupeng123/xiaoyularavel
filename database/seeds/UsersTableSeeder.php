@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 20)->create();
+        factory(App\User::class, 30)->create();
 
             //修改第一个数据为正式数据
             $user = \App\User::find(1);

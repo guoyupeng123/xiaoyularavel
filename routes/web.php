@@ -11,11 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 //加载首页
 Route::get('/','Home\HomeController@index')->name('index');
+
+
 //加载注册页面
 Route::get('/register','UserController@register')->name('register');
 //用户提交注册//因为不是git请求所以可以使用形同路径和别名
@@ -31,13 +34,37 @@ Route::get('/password_reset','UserController@passwordReset')->name('password_res
 //提交修改密码页面
 Route::post('/password_reset','UserController@passwordResetForm')->name('password_reset');
 
+//设置路由组
+//设置资源路由----文章的增删改查
+Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function (){
+    //加载首页
+    Route::get('/','HomeController@index')->name('index');
+//    资源路由
+    Route::resource('article','ArticleController');
+});
 
-//工具类  any() get和post都可以
-Route::any('/code','Util\CodeController@send')->name('code.sent');
+
+//会员中心路由组
+Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function (){
+
+    Route::resource('user','UserController');
+
+});
+
+
+Route::group(['prefix'=>'util','namespace'=>'Util','as'=>'util.'],function (){
+    //工具类  any() get和post都可以
+    Route::any('/code/sent','CodeController@send')->name('code.sent');
+//  上传
+    Route::any('/upload','UploadController@uploader')->name('upload');
+    Route::any('/filesLists','UploadController@filesLists')->name('filesLists');
+});
 
 
 
-//后台M模板 --路由组
+
+//后台M
+//模板 --路由组
 //['middleware'=>['admin.auth']  自定义的中间件
 //['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.']  缩减声明路由
 Route::group(['middleware'=>['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
