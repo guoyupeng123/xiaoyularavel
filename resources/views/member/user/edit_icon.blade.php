@@ -14,20 +14,20 @@
                             </div>
                         </div>
                         <h4 class="card-title">{{auth()->user()->name}}</h4>
-                        <img src="{{auth()->user()->icon}}" onclick="upImagePc(this)" style="height: 343px; display: block; width: 343px;border-radius: 50%;margin-left: 340px">
+                        <img src="{{auth()->user()->icon}}" id="imgicon" onclick="upImagePc(this)" style="height: 343px; display: block; width: 343px;border-radius: 50%;margin-left: 340px">
                         <h3 class="text-primary text-center" style="margin-top: 60px;">请上传 200X200 像素并小于200KB的JPG图片</h3>
-                        <form action="{{route('member.user.update',$user)}}" method="post" class="col-sm-8" id="form-icon">
+                        <form action="{{route('member.user.update',$user)}}" method="post" class="col-sm-8 editIocn" id="form-icon">
                             @csrf @method('PUT')
+                            <input type="hidden" name="icon" value="{{$user->icon}}">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     @push('js')
         <script>
-            require(['hdjs','bootstrap']);
+            require(['hdjs']);
             //上传图片
             function upImagePc() {
                 require(['hdjs'], function (hdjs) {
@@ -38,16 +38,21 @@
                     };
                     hdjs.image(function (images) {
                         //上传成功的图片，数组类型
-                        $("[name='thumb']").val(images[0]);
-                        $(".img-thumbnail").attr('src', images[0]);
+                        // alert(images);
+                        // 上传会把路径返回过来，图片替换，user表里面的icon替换
+
+                        // 让表单里面的input的value替换
+                        $("[name='icon']").val(images[0]);
+                        // 更改图片的src属性
+                        $("#imgicon").attr('src',images[0]);
+                        // 触发表单提交
+                        $('.editIocn').submit();
+                        // $("[name='thumb']").val(images[0]);
+                        // $(".img-thumbnail").attr('src', images[0]);
                     }, options)
                 });
             }
-            //移除图片
-            function removeImg(obj) {
-                $(obj).prev('img').attr('src', '../dist/static/image/nopic.jpg');
-                $(obj).parent().prev().find('input').val('');
-            }
+
         </script>
 
     @endpush

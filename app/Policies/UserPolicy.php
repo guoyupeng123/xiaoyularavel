@@ -81,8 +81,16 @@ class UserPolicy
     {
         //
     }
-    //判断指定用户是否为登录用户
+    //判断当前访问用户是否为登录用户
     public function isMine(User $user, User $model){
+//        判断该是不是该登录用户的个人中心
         return $user->id == $model->id;
     }
+
+//  判断如果是自己的文章不能关注
+    public function isnotMine(User $user, User $model){
+        return $user->id != $model->id;
+    }
+
+
 }

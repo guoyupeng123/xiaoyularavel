@@ -10,9 +10,8 @@
                     <div class="card-body">
                         <h4 class="card-title text-warning">{{$cont->title}}</h4>
                         <div class="card-description">
-                            @if($cont->user->id == auth()->user()->id){{$cont->user->name}}@else 作者 : {{$cont->user->name}}@endif <code>(-_-)</code> {{$cont->created_at->diffForHumans()}}
-
                             <a href="{{route('home.article.show',$cont)}}" class="btn btn-sm btn-primary d-none d-md-inline-block"  style="float: right" >查看详情</a>
+                            作者 : {{$cont->user->name}} <code>(-_-)</code> {{$cont->created_at->diffForHumans()}}
                             @can('update',$cont)
                                 <a href="{{route('home.article.edit',$cont)}}" class="btn btn-sm btn-primary d-none d-md-inline-block mr-2"  style="float: right;">编辑</a>
                             @endcan
@@ -24,7 +23,7 @@
                             </form>
                         </div>
                         <p>
-                            {{ str_limit($cont->content, 120, '... ... ') }}
+                            简介 : {{str_limit($cont->content, 120, '... ... ')}}
                         </p>
                     </div>
                     @endforeach

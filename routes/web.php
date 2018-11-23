@@ -46,9 +46,13 @@ Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function (){
 
 //会员中心路由组
 Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function (){
-
+//  资源路由
     Route::resource('user','UserController');
-
+//  文章关注
+    Route::get('attention/{user}','UserController@attention')->name('attention');
+////  粉丝列表
+    Route::get('get_fans/{user}','UserController@myFans')->name('my_fans');
+    Route::get('get_following/{user}','UserController@myFollowing')->name('my_following');
 });
 
 

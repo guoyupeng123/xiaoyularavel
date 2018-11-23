@@ -40,9 +40,11 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
     |
     */
-
     'disks' => [
-
+        'attachment'=>[
+            'driver' => 'local',
+            'root' => public_path(),
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

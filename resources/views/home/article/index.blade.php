@@ -12,12 +12,10 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-
                                         <!-- Title -->
                                         <h4 class="card-header-title" style="color: #8BA7E9;">
                                             文章列表
                                         </h4>
-
                                     </div>
                                     <div class="col-auto">
 
@@ -62,7 +60,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto">
                                                 <!-- Avatar -->
-                                                <a href="{{route('member.user.show',$value)}}" class="avatar avatar-sm">
+                                                <a href="{{route('member.user.show',$value->user)}}" class="avatar avatar-sm">
                                                     <img src="{{$value->user->icon}}" alt="..." class="avatar-img rounded">
                                                 </a>
                                             </div>

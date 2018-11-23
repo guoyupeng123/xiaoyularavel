@@ -15,7 +15,16 @@
     <!-- inject:css -->
     <link rel="stylesheet"href="{{asset('org/admin/css')}}/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{asset('org/admin/images')}}/favicon.png" />
+    <link rel="shortcut icon" href="{{asset('/')}}favicon.ico" />
+    <style>
+        .active{
+            font-weight: 600 !important;
+            color: #9a55ff !important;
+        }
+        .active i{
+            color: #9a55ff !important;
+        }
+    </style>
 </head>
 <body>
 <div class="container-scroller">
@@ -29,13 +38,13 @@
             <div class="search-field d-none d-md-block"></div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
-                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="{{route('member.user.show',auth()->user())}}" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
-                            <img src="https://lorempixel.com/640/480/?98307" alt="image">
+                            <img src="{{auth()->user()->icon}}" alt="image">
                             <span class="availability-status online"></span>
                         </div>
                         <div class="nav-profile-text">
-                            <p class="mb-1 text-black">龙王庙</p>
+                            <p class="mb-1 text-black">{{auth()->user()->name}}</p>
                         </div>
                     </a>
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -45,9 +54,8 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="http://xiaoyularavel.com">
-                        </a><a class="dropdown-item" href="http://xiaoyularavel.com">
                             <i class="mdi mdi-logout mr-2 text-primary"></i>
-                            退出
+                            返回首页
                         </a>
                     </div>
                 </li>
@@ -76,40 +84,48 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('member.user.show',$user)}}">
+                    <a class="nav-link {{active_class(if_route(['member.user.show']), 'active', '')}}" href="{{route('member.user.show',$user)}}">
                         <span class="menu-title">文章</span>
                         <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                     </a>
                 </li>
                 @can('isMine',$user)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('member.user.edit',[$user,'type'=>'icon'])}}">
+                    <a href="{{route('member.user.edit',[$user,'type'=>'icon'])}}"  class="nav-link {{active_class(if_route(['member.user.edit']) && if_query('type', 'icon'), 'active', '')}}">
                         <span class="menu-title">修改头像</span>
                         <i class="mdi mdi-account-circle menu-icon"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('member.user.edit',[$user,'type'=>'password'])}}">
+                    <a href="{{route('member.user.edit',[$user,'type'=>'password'])}}"  class="nav-link {{active_class(if_route(['member.user.edit']) && if_query('type', 'password'), 'active', '')}}">
                         <span class="menu-title">修改密码</span>
                         <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('member.user.edit',[$user,'type'=>'name'])}}">
+                    <a href="{{route('member.user.edit',[$user,'type'=>'name'])}}" class="nav-link {{active_class(if_route(['member.user.edit']) && if_query('type', 'name'), 'active', '')}}">
                         <span class="menu-title">修改昵称</span>
                         <i class="mdi mdi-contacts menu-icon"></i>
                     </a>
                 </li>
                 @endcan
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/charts/chartjs.html">
-                        <span class="menu-title">Charts</span>
+                    <a class="nav-link {{active_class(if_route(['member.my_fans']), 'active', '')}}" href="{{route('member.my_fans',$user)}}">
+                        @can('isMine',$user)
+                            <span class="menu-title">我的粉丝</span>
+                        @else
+                            <span class="menu-title">他的粉丝</span>
+                        @endcan
                         <i class="mdi mdi-chart-bar menu-icon"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/tables/basic-table.html">
-                        <span class="menu-title">Tables</span>
+                    <a class="nav-link {{active_class(if_route(['member.my_following']), 'active', '')}}" href="{{route('member.my_following',$user)}}">
+                        @can('isMine',$user)
+                            <span class="menu-title">我的关注</span>
+                        @else
+                            <span class="menu-title">他的关注</span>
+                        @endcan
                         <i class="mdi mdi-table-large menu-icon"></i>
                     </a>
                 </li>

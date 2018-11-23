@@ -7,26 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class UserController extends Controller{
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function __construct(){
+//        调用中间件 未登录用户不得访问这几个控制器方法
+        $this->middleware('auth',[
+            'only' => ['edit','update','attention']
+        ]);
     }
 
     /**
@@ -47,19 +34,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user){
-//        dd($user);//打印成功
+//        dd($user->id);//打印成功
         $article = Article::latest()->where('user_id',$user->id)->paginate(10);
         return view('member.user.show',compact('article','user'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user,Request $request)
-    {
+    public function edit(User $user,Request $request){
 //        调用策略
         $this->authorize('isMine',$user);
 //        接收提交的数据
@@ -114,5 +99,25 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+//  用户关注
+    public function attention(User $user){
+//        dd($user);
+//        toggle($user)//如果数据库里面有就取消，没有就写入
+//        auth()->user()->following()->toggle($user);
+        $user->fans()->toggle(auth()->user());
+        return back();
+    }
+//  粉丝列表
+    public function myFans(User $user){
+
+        $fans = $user->fans()->paginate(6);
+//        dd($fans->toArray());接受成功
+        return view('member.user.my_fans',compact('user','fans'));
+    }
+//  我关注了谁
+    public function myFollowing(User $user){
+        $fans = $user->following()->paginate(6);
+        return view('member.user.my_Following',compact('user','fans'));
     }
 }

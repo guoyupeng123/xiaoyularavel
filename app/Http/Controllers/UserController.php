@@ -34,13 +34,16 @@ class UserController extends Controller{
     }
 
 //  用户登录页面
-    public function login(){
+    public function login(Request $request){
+//      dd($request['url']);//测试提交过来的url
+        $url = $request['url'];
 //      加载登录模板
-        return view('user.login');
+        return view('user.login',compact('url'));
     }
 //  用户登录提交页面
     public function loginFrom(Request $request){
-//        dd($request->all());//接收数据
+//        dd($request->toArray());
+        //dd($request->all());//接收数据
 //      验证提交  --测试正常
         $this->validate($request,[
             'email'=>'email',
@@ -56,7 +59,10 @@ class UserController extends Controller{
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials,$request->remember)) {
 //            $request->remember//记住我,手册用户认证-》记住用户
-            return redirect()->route('index')->with('success','登录成功');
+            if ($request->url){
+                return redirect($request->url)->with('success','登录成功');
+            }
+            return redirect()->back()->with('success','登录成功');
         }
         return redirect()->back()->with('danger','用户名密码不正确');
     }

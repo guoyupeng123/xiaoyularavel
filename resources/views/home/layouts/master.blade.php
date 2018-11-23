@@ -28,10 +28,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Brand -->
-        <a class="navbar-brand mr-auto" href="index.html">
-            <img src="{{asset('org/')}}/assets/img/logo.svg" alt="..." class="navbar-brand-img">
-        </a>
+
 
         <!-- Form -->
         <form class="form-inline mr-4 d-none d-lg-flex">

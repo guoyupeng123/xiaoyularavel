@@ -19,14 +19,14 @@
                                    {{$article->title}}
                                 </h2>
                                 <p class="text-muted mb-1 text-muted small">
-                                    <a href="" class="text-secondary">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    <a href="{{route('member.user.show',$article->user)}}" class="text-secondary">
+                                       dd <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                     </a><a href="" class="text-secondary"> {{$article->user->title}}</a>
 
                                     <i class="fa fa-clock-o ml-2" aria-hidden="true"></i>
                                     {{$article->created_at->diffForHumans()}}
 
-                                    <a href="" class="text-secondary">
+                                    <a href="{{route('home.article.index',['category'=>$article->category_id])}}" class="text-secondary">
                                         <i class="fa fa-folder-o ml-2" aria-hidden="true"></i>
                                         {{$article->category->title}}
                                     </a>
@@ -41,28 +41,51 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{--引入评论模块--}}
+                        @include('home.layouts.comment')
+
+
                     </div>
                 </div>
                 <div class="col-12 col-xl-3">
                     <div class="card">
                         <div class="card-header">
                             <div class="text-center">
-                                <a href="" class="text-secondary">
+                                <a href="{{route('member.user.show',$article->user)}}" class="text-secondary">
                                     {{$article->user->name}}
                                 </a>
                             </div>
                         </div>
                         <div class="card-block text-center p-5">
                             <div class="avatar avatar-xl">
-                                <a href="">
+                                <a href="{{route('member.user.show',$article->user)}}">
                                     <img src="{{$article->user->icon}}" alt="..." class="avatar-img rounded-circle">
                                 </a>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            <a class="btn btn-white btn-block btn-xs" href="http://www.houdunren.com/member/follow/1">
-                                <i class="fa fa-plus" aria-hidden="true"></i> 关注 TA
-                            </a>
+                            @auth()
+                                {{--如果是自己的文章不可以关注--}}
+                                @can('isnotMine',$article->user)
+                                    {{--获取的是当前登录的用户有没有在我的关注里表里面--}}
+                                    @if($article->user->fans->contains(auth()->user()))
+                                        <a class="btn btn-white btn-block btn-xs" href="{{route('member.attention',$article->user)}}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> 取消关注
+                                        </a>
+                                    @else
+                                        <a class="btn btn-white btn-block btn-xs bg-danger text-white" href="{{route('member.attention',$article->user)}}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> 关注 TA
+                                        </a>
+                                    @endif
+
+                                @endcan
+
+                                @else
+                                    <a class="btn btn-white btn-block btn-xs bg-danger text-white" href="{{route('login',['url'=>url()->full()])}}">
+                                        <i class="fe fe-github mr-3" aria-hidden="true"></i>请登陆
+                                    </a>
+                            @endauth
                         </div>
                     </div>
                 </div>
