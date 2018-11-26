@@ -39,8 +39,15 @@ Route::post('/password_reset','UserController@passwordResetForm')->name('passwor
 Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function (){
     //加载首页
     Route::get('/','HomeController@index')->name('index');
-//    资源路由
+//  资源路由  文章
     Route::resource('article','ArticleController');
+//  资源路由  评论
+    Route::resource('comment','CommentController');
+//  点赞 和 取消赞
+    Route::get('zan/make','ZanController@make')->name('zan.make');
+//  收藏和取消收藏
+    Route::get('collect/make','CollectController@make')->name('collect.make');
+
 });
 
 
@@ -50,9 +57,11 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
     Route::resource('user','UserController');
 //  文章关注
     Route::get('attention/{user}','UserController@attention')->name('attention');
-////  粉丝列表
+//  粉丝列表
     Route::get('get_fans/{user}','UserController@myFans')->name('my_fans');
     Route::get('get_following/{user}','UserController@myFollowing')->name('my_following');
+//  我的收藏
+    Route::get('collect/{user}','UserController@collect')->name('collect');
 });
 
 

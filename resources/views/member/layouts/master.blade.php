@@ -24,6 +24,12 @@
         .active i{
             color: #9a55ff !important;
         }
+        a{
+            text-decoration: none !important;
+        }
+        .chankandd{
+            font-size: 14px !important;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +133,18 @@
                             <span class="menu-title">他的关注</span>
                         @endcan
                         <i class="mdi mdi-table-large menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('member.collect',$user)}}" class="nav-link {{active_class(if_route(['member.collect']), 'active', '')}}">
+                        @can('isMine',$user)
+                            <span class="menu-title">我的收藏</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        @else
+                            <span class="menu-title">他的收藏</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        @endcan
+
                     </a>
                 </li>
 

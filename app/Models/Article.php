@@ -17,6 +17,19 @@ class Article extends Model
 
 //      定义文章与文章栏目的关联
         public function category(){
-            return$this->belongsTo(Category::class);
+            return $this->belongsTo(Category::class);
         }
+
+//      定义article多态关联 关联点赞模型
+        public function zan(){
+//            定义多态关联的模型，第二个参数  数据迁移文件里面的 zan_id  zan_type
+            return $this->morphMany(Zan::class,'zan');
+        }
+
+    //  定义多态关联
+        public function collect(){
+    //        定义多态关联的模型,第二个参数 数据迁移的字段 也就是collect_id collect_type
+            return $this->morphMany(Collect::class,'collect');
+        }
+
 }

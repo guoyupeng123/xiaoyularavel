@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     {{--<!-- Libs CSS -->--}}
     <link rel="stylesheet" href="{{asset('org/')}}/assets/fonts/feather/feather.min.css">
     <link rel="stylesheet" href="{{asset('org/')}}/assets/libs/highlight/styles/vs2015.min.css">
@@ -13,7 +14,7 @@
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/')}}/assets/css/theme.min.css">
-
+    @stack('css')
     <title>Dashkit</title>
 </head>
 <body>

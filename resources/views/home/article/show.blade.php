@@ -9,8 +9,20 @@
                     <div class="card card-body p-5">
                         <div class="row">
                             <div class="col text-right">
-                                <a href="#" class="btn btn-xs">
-                                    <i class="fa fa-heart-o" aria-hidden="true"></i> 收藏</a>
+                                @auth()
+                                    {{--这里判断收藏当前文章的数据里面是否有当前登陆用户，如果有则显示取消，如果没有则显示收藏--}}
+                                        @if($article->collect->where('user_id',auth()->id())->first())
+                                                <a href="{{route('home.collect.make',['type'=>'article','id'=>$article['id']])}}" class="btn btn-xs text-warning border-warning">
+                                                <i class="fe fe-folder-minus mr-2 text-warning" aria-hidden="true"></i> 取消</a>
+                                            @else
+                                                <a href="{{route('home.collect.make',['type'=>'article','id'=>$article['id']])}}" class="btn btn-xs text-danger">
+                                                <i class="fe fe-folder-plus mr-2 text-danger" aria-hidden="true"></i> 收藏</a>
+                                        @endif
+                                    @else
+                                    {{--这句话代表如果如果用户没有登录的话，则跳转到登录页面，登陆成功后，返回原页面--}}
+                                    <a href="{{route('login',['url'=>url()->full()])}}" class="btn btn-xs text-danger">
+                                        <i class="fe fe-folder-plus mr-2 text-danger" aria-hidden="true"></i> 收藏</a>
+                                @endauth
                             </div>
                         </div>
                         <div class="row">
@@ -33,6 +45,8 @@
 
                                 </p>
                             </div>
+
+
                         </div>
                         <div class="row">
                             <div class="col-12 mt-5">

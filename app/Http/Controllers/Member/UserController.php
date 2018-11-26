@@ -120,4 +120,17 @@ class UserController extends Controller{
         $fans = $user->following()->paginate(6);
         return view('member.user.my_Following',compact('user','fans'));
     }
+//  我的收藏
+    public function collect(User $user){
+//      dd($user->collect);
+        $articles = [];
+        foreach ($user->collect as $collect){
+            //dump($collect->article);//打印成功
+            $articles[] = $collect->article;
+        }
+
+
+//        $articles = $articles->paginate(6);
+        return view('member.user.collect',compact('user','articles'));
+    }
 }
