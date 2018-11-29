@@ -13,4 +13,8 @@ class Zan extends Model
     protected function user(){
         return $this->belongsTo(User::class);
     }
+    //获取多态关联模型 Article  Comment
+    public function belongsModel(){
+        return $this->morphTo('zan');
+    }
 }

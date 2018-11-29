@@ -7,14 +7,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
-                            <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                                <i class="mdi mdi-account-outline icon-sm mr-2"></i>
-                                <span>{{$user->name}}</span>
-                            </div>
-                            <div class="d-flex align-items-center text-muted font-weight-light">
-                                <i class="mdi mdi-clock icon-sm mr-2"></i>
-                                <span>{{$user->created_at}}</span>
-                            </div>
+                            @auth()
+                                <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
+                                    <i class="mdi mdi-account-outline icon-sm mr-2"></i>
+                                    <span>{{$user->name}}</span>
+                                </div>
+                                <div class="d-flex align-items-center text-muted font-weight-light">
+                                    <i class="mdi mdi-clock icon-sm mr-2"></i>
+                                    <span>{{$user->created_at}}</span>
+                                </div>
+                                @endauth
                         </div>
                     </div>
                 </div>
@@ -48,5 +50,10 @@
             </div>
         </div>
         @endforeach
+
+
+        {{--{{$articles->links()}}--}}
+
+
     </div>
     @endsection

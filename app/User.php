@@ -4,9 +4,12 @@ namespace App;
 
 use App\Models\Attachment;
 use App\Models\Collect;
+use App\Models\Zan;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class User extends Authenticatable
 {
@@ -52,6 +55,18 @@ class User extends Authenticatable
     public function collect(){
         return $this->hasMany(  Collect::class);
     }
+
+    //用户关联 zan
+    public function zan(){
+        return $this->hasMany(Zan::class);
+    }
+
+//  消息通知排序
+    public function notifications()
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')->orderBy('read_at', 'asc')->orderBy('created_at', 'desc');
+    }
+
 
 
 }

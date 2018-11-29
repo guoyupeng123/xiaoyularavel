@@ -69,7 +69,6 @@ class ArticleController extends Controller{
 //  文章内容显示页面
     public function show(Article $article){
         return view('home.article.show',compact('article'));
-
     }
 
 //  编辑页面

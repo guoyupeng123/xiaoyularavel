@@ -128,9 +128,22 @@ class UserController extends Controller{
             //dump($collect->article);//打印成功
             $articles[] = $collect->article;
         }
-
-
 //        $articles = $articles->paginate(6);
         return view('member.user.collect',compact('user','articles'));
+    }
+//    我的点赞
+    public function myZan( User $user , Request $request){
+        //dd($user->zan);//通过模型关联找出赞表的数据
+//        $art = [];
+//        foreach ($user->zan as $zan){
+//            $art[] = $zan->belongsModel;
+//        }
+        $type=$request->query( 'type' );
+
+        $class = 'App\Models\\'.ucfirst($type);
+//      组合路径
+        $zansData = $user->zan->where('zan_type',$class)->all();
+
+        return view('member.user.my_zan_'.$type,compact('user','zansData'));
     }
 }

@@ -4,9 +4,27 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Laravel\Scout\Searchable;
+class Article extends Model{
+//      new 日志
+        use LogsActivity;
+//      搜索
+        use Searchable;
+        protected $fillable = ['title', 'content','id'];
+//      设置记录动态的属性
+//      protected static $logAttributes = ['name', 'text'];
+//      如果需要记录所有$fillable设置的填充属性，可以使用
+        protected static $logFillable = true;
+//      日志填充的条件 比如删除 更新 增加 和观察者相似
+        protected static $recordEvents = ['created','updated'];
+//      自定义日志名称
+        protected static $logName = 'article';
 
-class Article extends Model
-{
+
+
+
+
 //      定义文章与用户的的关联
         public function user(){
 //            return $this->belongsTo(User::class,'user_id','id');
@@ -30,6 +48,12 @@ class Article extends Model
         public function collect(){
     //        定义多态关联的模型,第二个参数 数据迁移的字段 也就是collect_id collect_type
             return $this->morphMany(Collect::class,'collect');
+        }
+
+        //定义评论通知  通知 已读之后跳转链接
+        public function getLink($param){
+//          $this  -> CommentNotify.php 里面
+            return route('home.article.show',$this).$param;
         }
 
 }

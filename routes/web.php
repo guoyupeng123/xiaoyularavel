@@ -39,6 +39,8 @@ Route::post('/password_reset','UserController@passwordResetForm')->name('passwor
 Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function (){
     //加载首页
     Route::get('/','HomeController@index')->name('index');
+    //加载搜索
+    Route::get('search','HomeController@search')->name('search');
 //  资源路由  文章
     Route::resource('article','ArticleController');
 //  资源路由  评论
@@ -47,7 +49,6 @@ Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function (){
     Route::get('zan/make','ZanController@make')->name('zan.make');
 //  收藏和取消收藏
     Route::get('collect/make','CollectController@make')->name('collect.make');
-
 });
 
 
@@ -62,6 +63,12 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
     Route::get('get_following/{user}','UserController@myFollowing')->name('my_following');
 //  我的收藏
     Route::get('collect/{user}','UserController@collect')->name('collect');
+//  我的点赞
+    Route::get('my_zan/{user}','UserController@myZan')->name('my_zan');
+//  我的所有通知
+    Route::get('notify/{user}','NotifyController@index')->name('notify');
+//  显示所有通知
+    Route::get('notify/show/{notify}','NotifyController@show')->name('notify.show');
 });
 
 

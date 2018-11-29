@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ZanController extends Controller{
+    public function __construct(){
+        //auth中间件对应的中间件在哪里,需要看注册中间件(app/Http/Kernal.php中$routeMiddleware)
+        //article/show.blade.php模板中点赞增加 auth 判断用户是否登录
+        $this->middleware('auth',[
+           'only'=>['make']
+        ]);
+    }
+
     //点赞和取消赞
    public function  make(Request $request){
 //     dd($request->toArray());
@@ -37,6 +45,16 @@ class ZanController extends Controller{
 //           $model->zan()->create();
            $model->zan()->create(['user_id'=>auth()->id()]);
        }
+
+
+//        判断是否为异步请求
+        if ($request->ajax()){
+//            这个需要重新获取对应模型，这句话结合异步请求
+            $newModel = $class::find($id);
+            return ['code'=>1,'message'=>'','zan_num'=>$newModel->zan->count()];
+        }
+
+
 
 //     返回的是指定位置
        return redirect($request->query('url').'#dianzan');

@@ -36,7 +36,7 @@
     <hr>
 
     <!-- Comments -->
-    <div class="comments mb-3" v-for="v in comments">
+    <div class="comments mb-3" v-for="v in comments" :id="'comment'+v.id">
         <div class="row">
 
             <div class="col-auto">
@@ -54,6 +54,9 @@
                         </div>
                         <div class="col-auto">
                             <time class="comment-time">@{{v.created_at}}</time>
+                        </div>
+                        <div class="col-0" @click="zan(v)" style="cursor: nw-resize !important;">
+                            <time class="comment-time">👍 | @{{ v.zan_num }}</time>
                         </div>
                     </div>
 
@@ -111,6 +114,9 @@
                     comment: {content: ''},//当前评论
                     comments: [],//全部评论
                 },
+                updated(){
+                    hdjs.scrollTo('body',location.hash,1000, {queue:true});
+                },
                 methods: {
                     @auth()
                     send() {
@@ -119,7 +125,7 @@
                             article_id: '{{$article['id']}}',
                         }).then((response) => {//遇到问题，this的指向有问题
                             // console.log(111);
-                            // console.log(response);
+                            // console.log(response.data.comment);
                             this.comments.push(response.data.comment);
 
                             //将 markdown 转为 html
@@ -139,6 +145,15 @@
                         editormd.setSelection({line: 0, ch: 0}, {line: 9999999, ch: 9999999});
                         //将选中文本替换成空字符串
                         editormd.replaceSelection("");
+                    },
+                    //点赞
+                    zan(v){
+                        let url = '/home/zan/make?type=comment&id='+v.id;
+                        axios.get(url).then((response)=>{
+                            //console.log(response.data.num);
+                            v.zan_num = response.data.zan_num;
+                            //console.log(v);
+                        })
                     }
                     @endauth
                 },

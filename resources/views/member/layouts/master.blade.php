@@ -44,6 +44,7 @@
             <div class="search-field d-none d-md-block"></div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
+                    @auth()
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="{{route('member.user.show',auth()->user())}}" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
                             <img src="{{auth()->user()->icon}}" alt="image">
@@ -53,10 +54,11 @@
                             <p class="mb-1 text-black">{{auth()->user()->name}}</p>
                         </div>
                     </a>
+
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('member.notify',auth()->user())}}">
                             <i class="mdi mdi-cached mr-2 text-success"></i>
-                            Activity Log
+                            消息通知
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="http://xiaoyularavel.com">
@@ -64,6 +66,7 @@
                             返回首页
                         </a>
                     </div>
+                    @endauth
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -139,10 +142,22 @@
                     <a href="{{route('member.collect',$user)}}" class="nav-link {{active_class(if_route(['member.collect']), 'active', '')}}">
                         @can('isMine',$user)
                             <span class="menu-title">我的收藏</span>
-                            <i class="mdi mdi-contacts menu-icon"></i>
+                            <i class="mdi mdi-book-multiple-variant menu-icon"></i>
                         @else
                             <span class="menu-title">他的收藏</span>
-                            <i class="mdi mdi-contacts menu-icon"></i>
+                            <i class="mdi mdi-book-multiple-variant menu-icon"></i>
+                        @endcan
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('member.my_zan',[$user,'type'=>'article'])}}" class="nav-link {{active_class(if_route(['member.my_zan']), 'active', '')}}">
+                        @can('isMine',$user)
+                            <span class="menu-title">我的点赞</span>
+                            <i class="mdi mdi-barley menu-icon"></i>
+                        @else
+                            <span class="menu-title">他的点赞</span>
+                            <i class="mdi mdi-barley menu-icon"></i>
                         @endcan
 
                     </a>

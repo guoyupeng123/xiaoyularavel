@@ -15,6 +15,11 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/')}}/assets/css/theme.min.css">
     @stack('css')
+    <style type="text/css">
+        .pagination{
+            margin-left: -50% !important;
+        }
+    </style>
     <title>Dashkit</title>
 </head>
 <body>
@@ -32,13 +37,14 @@
 
 
         <!-- Form -->
-        <form class="form-inline mr-4 d-none d-lg-flex">
+        <form class="form-inline mr-4 d-none d-lg-flex" action="{{route('home.search')}}">
+            @csrf
             <div class="input-group input-group-rounded input-group-merge" data-toggle="lists"
                  data-lists-values='["name"]'>
 
                 <!-- Input -->
-                <input type="search" class="form-control form-control-prepended  dropdown-toggle search"
-                       data-toggle="dropdown" placeholder="Search" aria-label="Search">
+                <input type="search" name="search" class="form-control form-control-prepended  dropdown-toggle search"
+                       data-toggle="dropdown" placeholder="请输入内容" aria-label="Search">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
                         <i class="fe fe-search"></i>
@@ -161,20 +167,18 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col">
-
                                 <!-- Title -->
                                 <h5 class="card-header-title">
-                                    Notifications
+                                    通知
                                 </h5>
-
                             </div>
                             <div class="col-auto">
-
+                            @auth()
                                 <!-- Link -->
-                                <a href="#!" class="small">
-                                    View all
+                                <a href="{{route('member.notify',auth()->user())}}" class="small">
+                                    查看全部通知
                                 </a>
-
+                                @endauth
                             </div>
                         </div> <!-- / .row -->
                     </div> <!-- / .card-header -->
@@ -182,256 +186,36 @@
 
                         <!-- List group -->
                         <div class="list-group list-group-flush my--3">
-                            <a class="list-group-item px-0" href="#!">
 
+                    @auth()
+                            @foreach(auth()->user()->unreadNotifications()->limit(3)->get() as $notification)
+                            <a class="list-group-item px-0" href="{{$notification['data']['link']}}">
                                 <div class="row">
                                     <div class="col-auto">
-
                                         <!-- Avatar -->
                                         <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-1.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
+                                            <img src="{{$notification['data']['user_icon']}}"
+                                                 alt="{{$notification['data']['user_name']}}" class="avatar-img rounded-circle">
                                         </div>
-
                                     </div>
                                     <div class="col ml--2">
-
                                         <!-- Content -->
                                         <div class="small text-muted">
-                                            <strong class="text-body">Dianna Smiley</strong> shared your post with
-                                            <strong class="text-body">Ab Hadley</strong>, <strong class="text-body">Adolfo
-                                                Hess</strong>, and <strong class="text-body">3 others</strong>.
+                                            <strong class="text-body d-block">{{$notification['data']['user_name']}} 评论了</strong>
+                                            {{$notification['data']['article_title']}}
                                         </div>
-
                                     </div>
                                     <div class="col-auto">
-
                                         <small class="text-muted">
-                                            2m
+                                            {{$notification->created_at->diffForHumans()}}
                                         </small>
-
                                     </div>
                                 </div> <!-- / .row -->
-
                             </a>
-                            <a class="list-group-item px-0" href="#!">
+                            @endforeach
+                    @endauth
 
-                                <div class="row">
-                                    <div class="col-auto">
 
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-2.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Ab Hadley</strong> reacted to your post with a 😍
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-3.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Adolfo Hess</strong> commented
-                                            <blockquote class="text-body">“I don’t think this really makes sense to do
-                                                without approval from Johnathan since he’s the one...”
-                                            </blockquote>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-4.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Daniela Dewitt</strong> subscribed to you.
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-5.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Miyah Myles</strong> shared your post with <strong
-                                                    class="text-body">Ryu Duke</strong>, <strong class="text-body">Glen
-                                                Rouse</strong>, and <strong class="text-body">3 others</strong>.
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-6.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Ryu Duke</strong> reacted to your post with a 😍
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-7.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Glen Rouse</strong> commented
-                                            <blockquote class="text-body">“I don’t think this really makes sense to do
-                                                without approval from Johnathan since he’s the one...”
-                                            </blockquote>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
-                            <a class="list-group-item px-0" href="#!">
-
-                                <div class="row">
-                                    <div class="col-auto">
-
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm">
-                                            <img src="{{asset('org/')}}/assets/img/avatars/profiles/avatar-8.jpg"
-                                                 alt="..." class="avatar-img rounded-circle">
-                                        </div>
-
-                                    </div>
-                                    <div class="col ml--2">
-
-                                        <!-- Content -->
-                                        <div class="small text-muted">
-                                            <strong class="text-body">Grace Gross</strong> subscribed to you.
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <small class="text-muted">
-                                            2m
-                                        </small>
-
-                                    </div>
-                                </div> <!-- / .row -->
-
-                            </a>
                         </div>
 
                     </div>
