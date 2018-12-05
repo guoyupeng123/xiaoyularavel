@@ -12,9 +12,17 @@
     <link rel="stylesheet" href="{{asset('org/admin/vendors')}}/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- inject:css -->
-    <link rel="stylesheet"href="{{asset('org/admin/css')}}/style.css">
+    <meta name="csrf-token" content="{{csrf_token()}}">
+    <link rel="stylesheet" href="{{asset('org/admin/css')}}/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{asset('org/admin/images')}}/favicon.png" />
+    <link rel="stylesheet" href="{{asset('org/css/wechat_button.css')}}" />
+    <script src="{{asset('org/js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <style>
+        a{
+            text-decoration: none !important;
+        }
+    </style>
 </head>
 <body>
 <div class="container-scroller">
@@ -38,6 +46,7 @@
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        @auth()
                         <div class="nav-profile-img">
                             <img src="{{auth()->user()->icon}}" alt="image">
                             <span class="availability-status online"></span>
@@ -45,11 +54,13 @@
                         <div class="nav-profile-text">
                             <p class="mb-1 text-black">{{auth()->user()->name}}</p>
                         </div>
+                            @endauth
                     </a>
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="#">
+                        @auth()
+                        <a class="dropdown-item" href="{{route('member.user.show',auth()->user())}}">
                             <i class="mdi mdi-cached mr-2 text-success"></i>
-                            Activity Log
+                            个人中心
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('index')}}">
@@ -57,7 +68,9 @@
                             <i class="mdi mdi-logout mr-2 text-primary"></i>
                             退出
                         </a>
+                        @endauth
                     </div>
+
                 </li>
                 <li class="nav-item d-none d-lg-block full-screen-link">
                     <a class="nav-link">
@@ -187,6 +200,7 @@
             <ul class="nav">
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
+                        @auth()
                         <div class="nav-profile-image">
                             <img src="{{auth()->user()->icon}}" alt="profile">
                             <span class="login-status online"></span> <!--change to offline or busy as needed-->
@@ -196,64 +210,103 @@
                             <span class="text-secondary text-small">Project Manager</span>
                         </div>
                         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                            @endauth
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.index')}}">
                         <span class="menu-title">后台首页</span>
-                        <i class="mdi mdi-home menu-icon"></i>
+                        <i class="mdi mdi-home menu-icon text-primary"></i>
                     </a>
                 </li>
+                @auth()
+                    @if(auth()->user()->is_admin == 1)
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-banner" aria-expanded="false" aria-controls="ui-basic">
+                            <span class="menu-title">网站轮播</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-table-large menu-icon text-primary"></i>
+                        </a>
+                        <div class="collapse" id="ui-banner">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('banner.banner.index')}}">编辑-<span class="text-primary">-banner</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('banner.banner.create')}}">增加-<span class="text-primary">-banner</span></a>
+                                </li>
+                                {{--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>--}}
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
+                @endauth
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <span class="menu-title">文章管理</span>
                         <i class="menu-arrow"></i>
-                        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        <i class="mdi mdi-crosshairs-gps menu-icon text-primary"></i>
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.category.index')}}">栏目管理</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                            {{--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>--}}
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/icons/mdi.html">
-                        <span class="menu-title">Icons</span>
-                        <i class="mdi mdi-contacts menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">
-                        <span class="menu-title">Forms</span>
-                        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/charts/chartjs.html">
-                        <span class="menu-title">Charts</span>
-                        <i class="mdi mdi-chart-bar menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/tables/basic-table.html">
-                        <span class="menu-title">Tables</span>
-                        <i class="mdi mdi-table-large menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                        <span class="menu-title">Sample Pages</span>
+                        <span class="menu-title">网站配置</span>
                         <i class="menu-arrow"></i>
-                        <i class="mdi mdi-medical-bag menu-icon"></i>
+                        <i class="mdi mdi-format-list-bulleted menu-icon  text-primary"></i>
                     </a>
                     <div class="collapse" id="general-pages">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.config.edit',['name'=>'base'])}}">基本配置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.config.edit',['name'=>'upload'])}}" class="nav-link">上传配置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.config.edit',['name'=>'mail'])}}" class="nav-link">邮件配置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.config.edit',['name'=>'code'])}}" class="nav-link">验证码配置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.config.edit',['name'=>'search'])}}" class="nav-link">搜索配置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.config.edit',['name'=>'wechat'])}}" class="nav-link">微信配置</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#wechat" aria-expanded="false" aria-controls="general-pages">
+                        <span class="menu-title">微信管理</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-wechat menu-icon text-primary"></i>
+                    </a>
+                    <div class="collapse" id="wechat">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('wechat.response_base.create')}}">基本回复</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('wechat.button.index')}}">查看菜单</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('wechat.button.create')}}">增加菜单</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('wechat.response_text.index')}}">文本回复</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('wechat.response_news.index')}}">图文回复</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -294,11 +347,23 @@
 <!-- Plugin js for this page-->
 <!-- End plugin js for this page-->
 <!-- inject:js -->
-<script src="js/off-canvas.js"></script>
-<script src="js/misc.js"></script>
+{{--<script src="js/off-canvas.js"></script>--}}
+{{--<script src="js/misc.js"></script>--}}
+
+
+
+
+
+{{--将hdjs封装成模板引入页面--}}
+@include('layouts.hdjs');
+@include('layouts.message');
+
+
+
+@stack('js')
 <!-- endinject -->
 <!-- Custom js for this page-->
-<script src="js/dashboard.js"></script>
+{{--<script src="js/dashboard.js"></script>--}}
 <!-- End custom js for this page-->
 </body>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 
@@ -19,7 +20,11 @@ class HomeController extends Controller {
 //            dump($artive);
 //        }
 //        die();
-        return view('home.home.index',compact('artives','pingluns'));
+
+//      轮播图
+        $banner = Banner::all();
+
+        return view('home.home.index',compact('artives','pingluns','banner'));
     }
 //    查询
     public function search(Request $request){

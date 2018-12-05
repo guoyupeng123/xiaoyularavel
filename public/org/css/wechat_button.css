@@ -1,0 +1,62 @@
+.buttonhh {
+  height: 100%;
+  background-color: #F2EDF3;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
+  background-image: url("/org/images/button.png") !important;
+}
+.buttonhh .mobile {
+  display: flex;
+  width: 79.4%;
+  margin-left: 9.8%;
+  height: 86.5%;
+}
+.buttonhh .mobile .mobile-container {
+  display: flex;
+  flex: 1;
+}
+.buttonhh .mobile .mobile-container dl {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  flex: 1;
+}
+.buttonhh .mobile .mobile-container dl dt {
+  padding: 0.8em 0;
+  text-align: center;
+  text-decoration: none;
+  background: white;
+  color: #646464;
+  font-size: 0.8em !important;
+}
+.buttonhh .mobile .mobile-container dl dt i {
+  color: #FF7F27 !important;
+}
+.buttonhh .mobile .mobile-container dl dd {
+  padding: 0.8em 0;
+  text-align: center;
+  background: white;
+  margin: 0 !important;
+}
+.buttonhh .mobile .mobile-container dl dd i {
+  color: #FF7F27 !important;
+}
+.buttonhh .mobile .mobile-container .icodt dt {
+  padding: 0.35em 0;
+}
+.buttonhh .mobile .mobile-container .icodt dt i {
+  font-size: 2em !important;
+}
+#fengexian {
+  font-size: 2em;
+  padding-bottom: 1.4em;
+  padding-top: 0.4em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/*# sourceMappingURL=wechat_button.css.map */

@@ -2,86 +2,61 @@
 
 
 @section('homecentend')
+
     <div class="main-content">
 
         <!-- HEADER -->
         <div class="header bg-dark pb-5">
-            <div class="container">
-
-                <!-- Body -->
-                <div class="header-body">
-                    <div class="row align-items-end">
-                        <div class="col">
-
-                            <!-- Pretitle -->
-                            <h6 class="header-pretitle text-secondary">
-                                Overview
-                            </h6>
-
-                            <!-- Title -->
-                            <h1 class="header-title text-white">
-                                Performance
-                            </h1>
-
-                        </div>
-                        <div class="col-auto">
-
-                            <!-- Nav -->
-                            <ul class="nav nav-tabs header-tabs">
-                                <li class="nav-item" data-toggle="chart" data-target="#headerChart"
-                                    data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                    data-prefix="$" data-suffix="k">
-                                    <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Earnings
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            $19.2k
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#headerChart"
-                                    data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                    data-prefix="" data-suffix="k">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Sessions
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            92.1k
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#headerChart"
-                                    data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                    data-prefix="" data-suffix="%">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Bounce
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            50.2%
-                                        </h3>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div> <!-- / .row -->
-                </div> <!-- / .header-body -->
-
-                <!-- Footer -->
-                <div class="header-footer">
-
-                    <!-- Chart -->
-                    <div class="chart">
-                        <canvas id="headerChart" class="chart-canvas"></canvas>
-                    </div>
-
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach($banner as $ban)
+                    <div class="swiper-slide"><img src="{{$ban['icon']}}" alt="{{$ban['title']}}"></div>
+                        @endforeach
                 </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
 
-            </div> <!-- / .container -->
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+
+            </div>
         </div> <!-- / .header -->
+        @push('css')
+            <style>
+                .swiper-container {
+                    width: 1920px;
+                    height: 500px;
+                }
+            </style>
+            @endpush
+
+
+        @push('js')
+            <script>
+                var mySwiper = new Swiper ('.swiper-container', {
+                    direction: 'vertical', // 垂直切换选项
+                    loop: true, // 循环模式选项
+
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+
+                    // 如果需要前进后退按钮
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+
+                    // 如果需要滚动条
+                    scrollbar: {
+                        el: '.swiper-scrollbar',
+                    },
+                })
+            </script>
+            @endpush
 
         <!-- CARDS -->
         <div class="container mt-6">

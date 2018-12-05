@@ -93,8 +93,36 @@ Route::group(['middleware'=>['admin.auth'],'prefix'=>'admin','namespace'=>'Admin
     //artisan make:model --migration --factory Models/Category
     //创建控制器指定模型
     //artisan make:controller --model=Models/Category Admin/CategoryController
-    Route::resource('category','CategoryController');
+    Route::resource('category','CategoryController');//后台栏目管理的编写
+//  加载手台配置型模板路由
+    Route::get('config/edit/{name}','ConfigController@edit')->name('config.edit');
+//  后台配置项增加更新数据
+    Route::post('config/update/{name}','ConfigController@update')->name('config.update');
 });
+
+
+//微信路由组
+Route::group(['prefix'=>'wechat','namespace'=>'Wechat','as'=>'wechat.'],function (){
+//  微信资源路由
+    Route::resource('button','ButtonController');
+//  微信通信地址
+    Route::any('api/handler','ApiController@handler')->name('api.handler');
+    Route::get('button/push/{button}','ButtonController@push')->name('button.push');
+//  基本文本回复
+    Route::resource('response_text','ResponseTextController');
+//  图文回复
+    Route::resource('response_news','ResponseNewsController');
+//  基本回复数据
+    Route::resource('response_base','ResponseBaseController');
+});
+
+//轮播图路由组
+Route::group(['prefix'=>'banner','namespace'=>'Banner','as'=>'banner.'],function (){
+//  资源路由
+    Route::resource('banner','BannerController');
+});
+
+
 
 
 

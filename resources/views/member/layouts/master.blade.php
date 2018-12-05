@@ -61,6 +61,11 @@
                             消息通知
                         </a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{route('admin.index',auth()->user())}}">
+                            <i class="mdi mdi-briefcase mr-2 text-success"></i>
+                            后台管理
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="http://xiaoyularavel.com">
                             <i class="mdi mdi-logout mr-2 text-primary"></i>
                             返回首页

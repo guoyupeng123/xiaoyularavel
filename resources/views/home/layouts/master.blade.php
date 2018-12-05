@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="viewport" content="{{hd_config('base.keyword')}}">
+    <meta name="description" content="{{hd_config('base.description')}}">
     <meta name="csrf-token" content="{{csrf_token()}}">
     {{--<!-- Libs CSS -->--}}
     <link rel="stylesheet" href="{{asset('org/')}}/assets/fonts/feather/feather.min.css">
@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="{{asset('org/')}}/assets/libs/quill/dist/quill.core.css">
     <link rel="stylesheet" href="{{asset('org/')}}/assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('org/')}}/assets/libs/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{asset('org/')}}/css/animate.min.css">
+    <link rel="stylesheet" href="{{asset('org/')}}/css/swiper.min.css">
+    <script type="text/javascript" src="{{asset('org/')}}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{asset('org/')}}/js/swiper.min.js"></script>
+    <script type="text/javascript" src="{{asset('org/')}}/js/swiper.animate-twice.min.js"></script>
+    <script type="text/javascript" src="{{asset('org/')}}/js/swiper.animate1.0.3.min.js"></script>
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/')}}/assets/css/theme.min.css">
@@ -20,14 +26,13 @@
             margin-left: -50% !important;
         }
     </style>
-    <title>Dashkit</title>
+    <title>{{hd_config('base.title')}}</title>
 </head>
 <body>
 <!-- TOPNAV
 ================================================== -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-
         <!-- Toggler -->
         <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbar"
                 aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
