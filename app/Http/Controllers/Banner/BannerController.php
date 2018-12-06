@@ -17,6 +17,7 @@ class BannerController extends Controller
      */
     public function index()
     {
+        hdcon('Banner-banner');
         $banners =Banner::all();
         return view('banner.index',compact('banners'));
     }
@@ -29,6 +30,7 @@ class BannerController extends Controller
     public function create()
     {
 //        dd(11);
+        hdcon('Banner-banner');
         return view('banner.create');
     }
 
@@ -42,7 +44,7 @@ class BannerController extends Controller
     {
 //        dd($request->toArray());
         $banners = Banner::create($request->all());
-
+        hdcon('Banner-banner');
         return redirect()->route('banner.banner.index')->with('success','上传成功');
     }
 
@@ -75,6 +77,7 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,Banner $banner){
+        hdcon('Banner-banner');
 //        dd($request->toArray());
 //        dd($banner->toArray());
         $banner->update($request->all());
@@ -88,6 +91,7 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Banner $banner){
+        hdcon('Banner-banner');
         $banner->delete();
         return redirect()->back()->with('success','删除成功');
     }

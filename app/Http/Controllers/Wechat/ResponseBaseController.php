@@ -25,6 +25,7 @@ class ResponseBaseController extends Controller
      */
     public function create()
     {
+        hdcon('Wechat-response-base');
 //      找到该条数据
         if (ResponseBase::find(1)){
             $data = ResponseBase::find(1);
@@ -45,6 +46,7 @@ class ResponseBaseController extends Controller
      */
     public function store(Request $request)
     {
+        hdcon('Wechat-response-base');
 //        dd($request->toArray());
 //        返回模型数据，要么添加要么更新
         $responseBase = ResponseBase::firstOrNew(['id'=>1]);

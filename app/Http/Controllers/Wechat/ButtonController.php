@@ -16,6 +16,7 @@ class ButtonController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        hdcon('Wechat-button');
         $buttons = Button::latest()->paginate()->toArray();
 //        dd($buttons);
         return view('wechat.button.index',compact('buttons'));
@@ -27,7 +28,7 @@ class ButtonController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-
+        hdcon('Wechat-button');
         return view('wechat.button.create');
     }
 
@@ -38,6 +39,7 @@ class ButtonController extends Controller
 //    增加到数据库
     public function store(Request $request)
     {
+        hdcon('Wechat-button');
         Button::create($request->all());
         return redirect()->route('wechat.button.index')->with('success','菜单添加成功');
     }

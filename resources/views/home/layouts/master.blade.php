@@ -255,7 +255,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="javascript:;" class="dropdown-item">{{auth()->user()->name}}</a>
                         <a href="{{route('member.user.show',auth()->user())}}" class="dropdown-item">个人中心</a>
-                    @can('view',auth()->user())
+                        @can('Admin-admin-index')
                          <a href="{{route('admin.index')}}" class="dropdown-item">后台管理</a>
                         @endcan
                         <hr class="dropdown-divider">

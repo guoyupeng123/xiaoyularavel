@@ -227,6 +227,7 @@
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-table-large menu-icon text-primary"></i>
                         </a>
+                        @can('Banner-banner')
                         <div class="collapse" id="ui-banner">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item">
@@ -238,22 +239,31 @@
                                 {{--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>--}}
                             </ul>
                         </div>
+                            @endcan
                     </li>
                     @endif
                 @endauth
+
+                @hasanyrole('article|superAdmin')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <span class="menu-title">文章管理</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-crosshairs-gps menu-icon text-primary"></i>
                     </a>
+                    @can('Admin-category')
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.category.index')}}">栏目管理</a></li>
                             {{--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>--}}
                         </ul>
                     </div>
+                        @endcan
                 </li>
+                @else @endhasanyrole
+
+
+                @can('Admin-config')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
                         <span class="menu-title">网站配置</span>
@@ -284,6 +294,9 @@
                         </ul>
                     </div>
                 </li>
+                @endcan
+
+                @hasanyrole('wx|superAdmin')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#wechat" aria-expanded="false" aria-controls="general-pages">
                         <span class="menu-title">微信管理</span>
@@ -292,24 +305,65 @@
                     </a>
                     <div class="collapse" id="wechat">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('wechat.response_base.create')}}">基本回复</a>
-                            </li>
+                            @can('Wechat-response-base')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('wechat.response_base.create')}}">基本回复</a>
+                                </li>
+                            @endcan
+
+                            @can('Wechat-button')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('wechat.button.index')}}">查看菜单</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('wechat.button.create')}}">增加菜单</a>
                             </li>
+                                @endcan
+                            @can('Wechat-response-text')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('wechat.response_text.index')}}">文本回复</a>
                             </li>
+                                @endcan
+                            @can('Wechat-response-news')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('wechat.response_news.index')}}">图文回复</a>
                             </li>
+                                @endcan
                         </ul>
                     </div>
                 </li>
+                @else @endhasanyrole
+
+                @hasanyrole('role|superAdmin')
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#quanxian" aria-expanded="false" aria-controls="general-pages">
+                        <span class="menu-title">权限管理</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-account menu-icon text-primary"></i>
+                    </a>
+                    <div class="collapse" id="quanxian">
+                        <ul class="nav flex-column sub-menu">
+                            @can('Role-user')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('role.user.index')}}">用户管理</a>
+                            </li>
+                            @endcan
+                             @can('Role-role')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('role.role.index')}}">角色管理</a>
+                            </li>
+                            @endcan
+                            @can('Role-permission')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('role.permission.index')}}">权限列表</a>
+                            </li>
+                             @endcan
+                        </ul>
+                    </div>
+                </li>
+                @else @endhasanyrole
+
+
                 <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
                 <li class="nav-item sidebar-actions">
             <span class="nav-link">

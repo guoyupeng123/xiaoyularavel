@@ -10,6 +10,7 @@ class ConfigController extends Controller
 {
 //    加载模板页面
     public function edit($name){
+        hdcon('Admin-config');
         //测试 hd_config函数
         //dd(hd_config('uploasasdad.size'));
         //获取配置项数据
@@ -24,6 +25,7 @@ class ConfigController extends Controller
     }
 //    执行数据添加更新
     public function update($name,Request $request){
+        hdcon('Admin-config');
 //      updateOrCreate  执行添加或者更新
 //      updateOrCreate 在手册的  Eloquent ORM->入门->其他创作方法->updateOrCreate
         Config::updateOrCreate(

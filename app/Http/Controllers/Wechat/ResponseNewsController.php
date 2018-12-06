@@ -23,6 +23,7 @@ class ResponseNewsController extends Controller
 
     public function index()
     {
+        hdcon('Wechat-response-news');
         $field = ResponseNews::all();
         return view('wechat.response_news.index',compact('field'));
     }
@@ -34,7 +35,7 @@ class ResponseNewsController extends Controller
      */
     public function create(WechatService $wechatService)
     {
-
+        hdcon('Wechat-response-news');
         $ruleView = $wechatService->ruleView();
         return view('wechat.response_news.cretate',compact('ruleView'));
     }
@@ -47,6 +48,7 @@ class ResponseNewsController extends Controller
      */
     public function store(Request $request,WechatService $wechatService)
     {
+        hdcon('Wechat-response-news');
 //        dd($request->toArray());
         DB::beginTransaction();
         $rule = $wechatService->ruleStore('news');
@@ -80,6 +82,7 @@ class ResponseNewsController extends Controller
      */
     public function edit(ResponseNews $responseNews,WechatService $wechatService)
     {
+        hdcon('Wechat-response-news');
         $ruleView = $wechatService->ruleView($responseNews['rule_id']);
         return view('wechat.response_news.edit',compact('responseNews','ruleView'));
     }
@@ -93,6 +96,7 @@ class ResponseNewsController extends Controller
      */
     public function update(Request $request, ResponseNews $responseNews,WechatService $wechatService)
     {
+        hdcon('Wechat-response-news');
         //开启事务
         DB::beginTransaction();
 //        dd($responseText);
@@ -116,6 +120,7 @@ class ResponseNewsController extends Controller
      */
     public function destroy(ResponseNews $responseNews)
     {
+        hdcon('Wechat-response-news');
         $responseNews->rule()->delete();
         return redirect()->route('wechat.response_news.index')->with('success','操作成功');
     }

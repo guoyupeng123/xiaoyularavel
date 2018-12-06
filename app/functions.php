@@ -22,3 +22,11 @@ if (!function_exists('hd_config')){
         return $cache[$var[0]][$var[1]]??'';
     }
 }
+
+
+//判断是否有指定权限
+function hdcon($can){
+    if (!auth()->user()->can($can)){
+        throw  new \App\Exceptions\AuthException('你敢进来打死你');
+    }
+}

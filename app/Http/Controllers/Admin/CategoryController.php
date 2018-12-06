@@ -15,6 +15,7 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        hdcon('Admin-category');
 //      获取数据表中的所有数据
 //        $date = Category::all();
 //        dd($date);
@@ -40,6 +41,7 @@ class CategoryController extends Controller{
      */
     public function store(CategoryRequest $request)
     {
+        hdcon('Admin-category');
         Category::create($request->all());
         return redirect()->route('admin.category.index')->with('sussess','添加成功');
     }
@@ -63,6 +65,7 @@ class CategoryController extends Controller{
      */
     public function edit(Category $category){
 //        dd($category);
+        hdcon('Admin-category');
         //      获取数据表中的所有数据
 //        $date = Category::all();
         $fenye = Category::paginate(5);//分页
@@ -77,6 +80,7 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, Category $category){
+        hdcon('Admin-category');
 //        dd($request->all());
 //        dd($category);
 //        执行添加
@@ -91,6 +95,7 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category){
+        hdcon('Admin-category');
         $category->delete();
         return redirect()->route('admin.category.index')->with('success','删除成功');
     }

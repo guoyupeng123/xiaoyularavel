@@ -17,6 +17,7 @@ class ResponseTextController extends Controller
      */
     public function index()
     {
+        hdcon('Wechat-response-text');
         $flie = ResponseText::all();
         return view('wechat.response_text.index',compact('flie'));
     }
@@ -28,6 +29,7 @@ class ResponseTextController extends Controller
      */
     public function create(WechatService $wechatService)
     {
+        hdcon('Wechat-response-text');
         $ruleView = $wechatService->ruleView();
         return view('wechat.response_text.cretate',compact('ruleView'));
     }
@@ -40,7 +42,7 @@ class ResponseTextController extends Controller
      */
     public function store(Request $request,WechatService $wechatService)
     {
-
+        hdcon('Wechat-response-text');
 
         DB::beginTransaction();
         $rule = $wechatService->ruleStore('text');
@@ -61,7 +63,7 @@ class ResponseTextController extends Controller
     }
 
     public function edit(ResponseText $responseText,WechatService $wechatService){
-
+        hdcon('Wechat-response-text');
         $ruleView = $wechatService->ruleView($responseText['rule_id']);
         return view('wechat.response_text.edit',compact('ruleView','responseText'));
     }
@@ -75,6 +77,7 @@ class ResponseTextController extends Controller
      */
     public function update(Request $request, ResponseText $responseText,WechatService $wechatService)
     {
+        hdcon('Wechat-response-text');
         DB::beginTransaction();
         $rule = $wechatService->ruleUpdate($responseText['rule_id']);
 //        dd($request->toArray());
@@ -96,6 +99,7 @@ class ResponseTextController extends Controller
      */
     public function destroy(ResponseText $responseText)
     {
+        hdcon('Wechat-response-text');
         $responseText->rule()->delete();
         return redirect()->route('wechat.response_text.index')->with('success', '操作成功');
     }

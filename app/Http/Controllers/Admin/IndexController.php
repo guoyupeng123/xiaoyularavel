@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class IndexController extends Controller
 {
     public function index(){
+        hdcon('Admin-admin-index');
         return view('admin.index.index');
     }
 }

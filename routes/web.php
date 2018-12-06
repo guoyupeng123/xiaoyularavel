@@ -87,7 +87,7 @@ Route::group(['prefix'=>'util','namespace'=>'Util','as'=>'util.'],function (){
 //模板 --路由组
 //['middleware'=>['admin.auth']  自定义的中间件
 //['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.']  缩减声明路由
-Route::group(['middleware'=>['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
     Route::get('index','IndexController@index')->name('index');
     //创建模型同时创建迁移文件和工厂
     //artisan make:model --migration --factory Models/Category
@@ -123,6 +123,23 @@ Route::group(['prefix'=>'banner','namespace'=>'Banner','as'=>'banner.'],function
 });
 
 
+
+//权限管理
+Route::group(['prefix'=>'role','namespace'=>'Role','as'=>'role.'],function (){
+//  权限列表
+    Route::get('permission/index','PermissionController@index')->name('permission.index');
+    //清除权限缓存
+    Route::get('permission/forget_permission_cache','PermissionController@forgetPermissionCache')->name('permission.forget_permission_cache');
+    //角色管理的资源路由
+    Route::resource('role','RoleController');
+    //设置角色权限
+    Route::post('role/set_role_permission/{role}','RoleController@setRolePermission')->name('role.set_role_permission');
+    //用户管理
+    Route::get('user/index','UserController@index')->name('user.index');
+    Route::get('user/user_set_role_create/{user}','UserController@userSetRoleCreate')->name('user.user_set_role_create');
+    Route::post('user/user_set_role_store/{user}','UserController@userSetRoleStore')->name('user.user_set_role_store');
+    Route::post('user/user_set_role_delete/{user}','UserController@userSetRoleDelete')->name('user.user_set_role_delete');
+});
 
 
 
