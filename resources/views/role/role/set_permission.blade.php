@@ -23,7 +23,8 @@
                                                    class="form-check-input"
                                                    {{--$role->hasPermissionTo('edit_articles');检查权限 -> 检查角色是否拥有摸个权限--}}
                                                    @if($role->hasPermissionTo($module['name'].'-'.$permission['name'])) checked @endif
-                                                    @if('Admin-admin-index' == $module['name'].'-'.$permission['name']) checked  readonly="readonly"  @endif
+                                                    {{--此判断是所有角色都给一个登录权限--}}
+                                                   @if('Admin-admin-index' == $module['name'].'-'.$permission['name']) checked  readonly="readonly"  @endif
                                             >
                                             {{$permission['title']}}
                                             <i class="input-helper"></i></label>

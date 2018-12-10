@@ -55,7 +55,7 @@ class ArticleController extends Controller{
     public function store(ArticleRequest $request,Article $article){
 //        获取当前用户的id
 //        dd(auth()->id());
-//        dd($request->all());
+//        dd($request->all());`
 //        因为用户提交的数据里面没有当前用户的id，所以用这种写法
         $article->title = $request->title;
         $article->category_id = $request->category_id;

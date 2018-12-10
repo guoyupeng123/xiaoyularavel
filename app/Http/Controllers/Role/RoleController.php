@@ -55,6 +55,8 @@ class RoleController extends Controller{
         return redirect()->route('role.role.index')->with('success','删除成功');
     }
 
+
+
     public function show(Role $role){
         hdcon('Role-role');
 //      获取所有模块以及权限,获取的 modules 所有数据

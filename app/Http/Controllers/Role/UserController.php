@@ -33,8 +33,8 @@ class UserController extends Controller
     public function userSetRoleStore(User $user,Request $request){
         hdcon('Role-user');
 //        dd($request->toArray());
+//      给用户添加角色
         $user->syncRoles($request->permissions);
-//        给用户添加角色
         return redirect()->route('role.user.index')->with('success', '操作成功');
     }
 

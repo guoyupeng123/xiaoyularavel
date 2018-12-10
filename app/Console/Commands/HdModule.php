@@ -42,6 +42,7 @@ class HdModule extends Command
      */
     public function handle()
     {
+        //dd(cache('spatie.permission.cache'));
         //uses 用户表
         //model_has_roles   用户 角色中间表
         //roles 角色表
@@ -106,7 +107,10 @@ class HdModule extends Command
         //注意如果执行报错:App\User 模型中未定义assignRole,解决办法:需要在 User 模型中引入HasRoles类
         $user->assignRole('superAdmin');
         //清除缓存
-        app()['cache']->forget('spatie.permission.cache');
+        //app()['cache']->forget('spatie.permission.cache');
+        //运行命名的   在php里运行命令
+        \Artisan::call('permission:cache-reset');
+//        \Cache::flush();//清除所有缓存
         //命令执行成功提示信息
         $this->info('permission init successfully');
     }
